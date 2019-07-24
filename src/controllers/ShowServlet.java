@@ -33,12 +33,12 @@ public class ShowServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         EntityManager em = DBUtil.createEntityManager();
 
-        // 該当のIDのメッセージ1件のみをデータベースから取得
+        // get a matching task from the DB (just one task!)
         Task t = em.find(Task.class, Integer.parseInt(request.getParameter("id")));
 
         em.close();
 
-        // メッセージデータをリクエストスコープにセットしてshow.jspを呼び出す
+        // set task to request scope
         request.setAttribute("task", t);
 
         RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/tasks/show.jsp");
